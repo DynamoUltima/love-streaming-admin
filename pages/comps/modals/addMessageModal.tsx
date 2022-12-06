@@ -18,7 +18,7 @@ const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
 
     return (
         <>
-            <Transition appear show={isOpen} as={Fragment}>
+            <Transition appear show={isOpen??false} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
                         as={Fragment}
