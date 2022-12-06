@@ -8,4 +8,15 @@
   }
 }
 
+@layer utilities {
+  .square{
+      aspect-ratio:1/1
+  }
+
+  .rectangle{
+      aspect-ratio:1/1.5
+  }
+
+}
+
 

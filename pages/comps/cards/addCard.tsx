@@ -8,7 +8,7 @@ const AddCard = () => {
             <div className='flex flex-col w-44 space-y-2'>
                 {/* Image */}
                 <div className='relative h-32 w-44 bg-neutral-700 rounded-lg overflow-clip flex items-center justify-center shadow-lg'>
-                    
+                 
                     <PlusIcon className="w-8 h-8 text-white" />
                 </div>
                 {/* Text */}
