@@ -1,8 +1,9 @@
 import { Dialog, Transition } from "@headlessui/react";
 
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import SearchBar from "../search/searchbar";
 import MessageTiles from "../tiles/messageTiles";
+import UploadMessageModal from "./uploadMessageModal";
 
 
 interface Modal {
@@ -14,6 +15,21 @@ interface Modal {
 const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
     console.log('print')
     console.log(isOpen)
+
+    let [isOpened, setIsOpened] = useState(true)
+
+    function exitModal() {
+        setIsOpened(false)
+      }
+    
+      function openModal() {
+        setIsOpened(true)
+      }
+
+    const openNewModal=()=>{
+        // closeModal()
+        setIsOpened(true)
+    }
 
 
     return (
@@ -55,18 +71,18 @@ const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
                                     <SearchBar />
 
                                     <div className="max-h-64 overflow-auto space-y-4">
-                                        <MessageTiles />
-                                        <MessageTiles />
-                                        <MessageTiles />
-                                        <MessageTiles />
-                                        <MessageTiles />
-                                        <MessageTiles />
-                                        <MessageTiles />
-                                        <MessageTiles />
-                                        <MessageTiles />
-                                        <MessageTiles />
-                                        <MessageTiles />
-                                        <MessageTiles />
+                                        <MessageTiles onClick={openNewModal} />
+                                        <MessageTiles onClick={openNewModal}/>
+                                        <MessageTiles onClick={openNewModal} />
+                                        <MessageTiles onClick={openNewModal} />
+                                        <MessageTiles onClick={openNewModal} />
+                                        <MessageTiles  onClick={openNewModal}/>
+                                        <MessageTiles  onClick={openNewModal}/>
+                                        <MessageTiles  onClick={openNewModal}/>
+                                        <MessageTiles onClick={openNewModal} />
+                                        <MessageTiles onClick={openNewModal} />
+                                        <MessageTiles onClick={openNewModal} />
+                                        <MessageTiles onClick={openNewModal} />
 
                                     </div>
 
@@ -86,7 +102,9 @@ const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>
+                            
                         </div>
+                        <UploadMessageModal isOpen={isOpened} closeModal={exitModal} />
                     </div>
                 </Dialog>
             </Transition>

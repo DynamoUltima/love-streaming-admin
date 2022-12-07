@@ -1,7 +1,7 @@
 import Image from "next/image";
 import RisingClouds from "/public/rising-clouds.jpg"
 
-const RecentCard = () => {
+const MessageCard = () => {
     return (
         <>
             <div className='flex flex-col w-44 space-y-2'>
@@ -20,4 +20,4 @@ const RecentCard = () => {
     );
 }
 
-export default RecentCard;
+export default MessageCard;

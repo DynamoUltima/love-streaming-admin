@@ -1,11 +1,11 @@
 import Image from "next/image";
 import RisingClouds from "/public/rising-clouds.jpg"
 
-const MessageTiles = () => {
+const MessageTiles = ({onClick}:any) => {
 
-    
+
     return (
-        <div className="flex flex-row  justify-between space-x-2 ">
+        <div onClick={onClick} className="flex flex-row  justify-between space-x-2 ">
             <div className="relative overflow-clip square h-16  rounded-md">
                 <Image alt='Mesage image' fill src={RisingClouds} />
             </div>

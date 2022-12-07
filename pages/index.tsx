@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Layout from './layout'
 import { PlusIcon } from "@heroicons/react/24/solid";
-import RecentCard from "./comps/cards/recentCard";
+import MessageCard from "./comps/cards/messageCard";
 import AddCard from "./comps/cards/addCard";
 import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react'
@@ -54,32 +54,35 @@ export default function Home() {
             </button>
           </div>
 
-          <AddMessageModal isOpen={isOpen} closeModal={closeModal}  />
+          <AddMessageModal isOpen={isOpen} closeModal={closeModal} />
 
-          
-          
+
+
 
 
 
           <div className="overflow-auto h-full  pb-10">
-            <div className="grid grid-cols-6 gap-9 gap-y-6">
-              <RecentCard />
-              <RecentCard />
-              <RecentCard />
-              <RecentCard />
-              <RecentCard />
-              <RecentCard />
-              <RecentCard />
-              <RecentCard />
-              <RecentCard />
-              <RecentCard />
-              <RecentCard />
-              <RecentCard />
-              <RecentCard />
-              <RecentCard />
-              <RecentCard />
-              <RecentCard />
-              <AddCard />
+            <div className="grid grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-9 gap-y-6">
+              <MessageCard />
+              <MessageCard />
+              <MessageCard />
+              <MessageCard />
+              <MessageCard />
+              <MessageCard />
+              <MessageCard />
+              <MessageCard />
+              <MessageCard />
+              <MessageCard />
+              <MessageCard />
+              <MessageCard />
+              <MessageCard />
+              <MessageCard />
+              <MessageCard />
+              <MessageCard />
+              <div onClick={openModal} className="">
+                <AddCard  />
+              </div>
+
 
             </div>
           </div>
