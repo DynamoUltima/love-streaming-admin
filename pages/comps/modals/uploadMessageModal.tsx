@@ -1,6 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
+import Player from "../player/player";
 
 interface Modal {
     isOpen: boolean,
@@ -11,7 +12,7 @@ const UploadMessageModal = ({ isOpen, closeModal }: Modal) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const myFun = (d: any) => {
-        alert(d.email + "from" + d.fullname)
+        alert(d.title + "from" + d.description)
     }
 
     return (
@@ -52,7 +53,7 @@ const UploadMessageModal = ({ isOpen, closeModal }: Modal) => {
 
                                     {/* <SearchBar /> */}
 
-                                    <div className="max-h-64 overflow-auto space-y-4">
+                                    <div className=" overflow-auto space-y-4">
 
 
                                         <form onSubmit={handleSubmit(myFun)} className="w-full max-w-sm">
@@ -61,7 +62,7 @@ const UploadMessageModal = ({ isOpen, closeModal }: Modal) => {
                                                 <div className="w-full space-y-1">
                                                     <label className="text-gray-500" htmlFor="title">Title</label>
                                                     <input {...register('title', { required: true })} className=" form-control  bg-mattblack p-2 text-gray-200 focus:outline-none rounded w-full py-2 px-4 leading-tight " placeholder="Title" id="title" type="text" />
-                                                    {errors.title && errors.title.type == "required" && <p className="text-red-500">please enter title</p>}
+                                                    {errors.title && errors.title.type == "required" && <p className="text-red-400 text-sm">Please enter a title</p>}
                                                 </div>
                                             </div>
 
@@ -71,12 +72,14 @@ const UploadMessageModal = ({ isOpen, closeModal }: Modal) => {
                                                     <label className="text-gray-500" htmlFor="description">
                                                         Description
                                                     </label>
-                                                    <input {...register('description', { required: true, minLength: 3 })} className=" form-control  bg-mattblack p-2 text-gray-200 focus:outline-none rounded w-full py-2 px-4 leading-tight" placeholder="Description" id="fullname" type="text" />
-                                                    {errors.description && errors.description.type == "required" && <p className="text-red-500 text-sm">please enter message description</p>}
-                                                    {errors.description && errors.description.type == "minLength" && <p className="text-red-500 text-sm">please enter  a minimum of 3 letters</p>}
+                                                    <textarea {...register('description', { required: true, minLength: 3 })} className="form-control  bg-mattblack p-2 text-gray-300 focus:outline-none rounded w-full py-2 px-4 leading-tight" placeholder="Description" id="description" rows={3} />
+                                                    {errors.description && errors.description.type == "required" && <p className="text-red-400  text-sm">please enter message description</p>}
+                                                    {errors.description && errors.description.type == "minLength" && <p className="text-red-400  text-sm">please enter  a minimum of 3 letters</p>}
 
                                                 </div>
                                             </div>
+
+                                            <Player />
 
 
 
