@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import Player from "../player/player";
+import Tags from "../tags/tags";
 
 interface Modal {
     isOpen: boolean,
@@ -11,6 +12,23 @@ interface Modal {
 const UploadMessageModal = ({ isOpen, closeModal }: Modal) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const [tagName, setTagName] = useState(['Faith', 'Love']);
+
+    const addTags = (e: any) => {
+        if (e.code == "Space") {
+            setTagName([...tagName, e.target.value]);
+            e.target.value = "";
+        }
+        // setTagName([...tagName, e.target.value]);
+        // e.target.value = "";
+
+
+    }
+
+    const removeTags = (indexToRemve: any) => {
+        setTagName(tagName.filter((_, index) => index != indexToRemve))
+    }
     const myFun = (d: any) => {
         alert(d.title + "from" + d.description)
     }
@@ -65,6 +83,36 @@ const UploadMessageModal = ({ isOpen, closeModal }: Modal) => {
                                                     {errors.title && errors.title.type == "required" && <p className="text-red-400 text-sm">Please enter a title</p>}
                                                 </div>
                                             </div>
+
+
+
+
+                                            <div className="md:flex md:items-center mb-6">
+
+                                                <div className="w-full space-y-1">
+                                                    <label className="text-gray-500" htmlFor="tags">Tags</label>
+                                                    <div className="form-control  bg-mattblack p-2 text-gray-200 focus:outline-none rounded w-full py-2 px-4 leading-tight">
+
+                                                        <ul className="flex flex-wrap">
+                                                            {tagName.map((tagName, index) => (
+                                                                <li key={index}>
+                                                                    <Tags 
+                                                                    name={tagName} 
+                                                                    removeTags={removeTags}
+                                                                    index={index} 
+                                                                    />
+
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+
+                                                        <input {...register('tags', { required: true })} className=" bg-mattblack focus:outline-none" placeholder="Press enter to add Tags" type={'text'} onKeyUp={addTags} />
+                                                        {/* {errors.title && errors.title.type == "required" && <p className="text-red-400 text-sm">Please enter a title</p>} */}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
 
                                             <div className="md:flex md:items-center mb-6 form-group">
 
