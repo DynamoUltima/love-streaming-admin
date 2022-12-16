@@ -106,7 +106,7 @@ const UploadMessageModal = ({ isOpen, closeModal }: Modal) => {
                                                             ))}
                                                         </ul>
 
-                                                        <input {...register('tags', { required: true })} className=" bg-mattblack focus:outline-none" placeholder="Press enter to add Tags" type={'text'} onKeyUp={addTags} />
+                                                        <input  className=" bg-mattblack focus:outline-none w-full" placeholder="Press Space to add Tags" type={'text'} onKeyUp={addTags} />
                                                         {/* {errors.title && errors.title.type == "required" && <p className="text-red-400 text-sm">Please enter a title</p>} */}
                                                     </div>
                                                 </div>
