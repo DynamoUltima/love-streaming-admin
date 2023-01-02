@@ -3,17 +3,26 @@ import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import Player from "../player/player";
 import Tags from "../tags/tags";
+import { Item, Snippet } from "./addMessageModal";
 
 interface Modal {
     isOpen: boolean,
-    closeModal: () => void
+    closeModal: () => void,
+    item?:Item,
+
 }
 
-const UploadMessageModal = ({ isOpen, closeModal }: Modal) => {
+
+
+const UploadMessageModal = ({ isOpen, closeModal,item }: Modal) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const [tagName, setTagName] = useState(['Faith', 'Love']);
+    
+
+    console.log("print item at upload modal")
+    console.log(item?.id?.videoId??"");
 
     const addTags = (e: any) => {
         if (e.code == "Space") {
@@ -127,7 +136,7 @@ const UploadMessageModal = ({ isOpen, closeModal }: Modal) => {
                                                 </div>
                                             </div>
 
-                                            <Player />
+                                            <Player videoId={item?.id?.videoId??""} />
 
 
 

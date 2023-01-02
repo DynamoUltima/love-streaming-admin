@@ -8,6 +8,7 @@ import AddCard from "./comps/cards/addCard";
 import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react'
 import AddMessageModal from './comps/modals/addMessageModal';
+import { Button } from "@material-tailwind/react";
 
 
 
@@ -48,10 +49,10 @@ export default function Home() {
         <div className="flex flex-col space-y-4 h-5/6  ">
           <div className='text-white  flex flex-row justify-between pt-5'>
             <div className='text-lg'>Messages</div>
-            <button onClick={openModal} type="button" className={`bg-blue-500 text-xs w-32 h-10 hover:bg-blue-400 text-white rounded-md p-2 flex flex-row justify-center items-center space-x-2 shadow-xl focus:outline-none  focus:ring-offset-2 focus:ring-2 `}>
+            <Button onClick={openModal} type="button" className={`!bg-blue-500 text-xs w-32  !h-10   !hover:bg-blue-400 !text-white !rounded-md !p-2 !flex !flex-row !justify-center items-center space-x-2 shadow-xl focus:outline-none  focus:ring-offset-2 focus:ring-2 `}>
               <PlusIcon className="w-6 h-6 text-white" />
-              <div className="">Add New</div>
-            </button>
+              <div className="capitalize font-[Montserrat] text-xs text-white">Add New</div>
+            </Button>
           </div>
 
           <AddMessageModal isOpen={isOpen} closeModal={closeModal} />

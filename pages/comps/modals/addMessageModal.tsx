@@ -1,6 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
+import axios from "axios";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import SearchBar from "../search/searchbar";
 import MessageTiles from "../tiles/messageTiles";
 import UploadMessageModal from "./uploadMessageModal";
@@ -11,30 +12,147 @@ interface Modal {
     closeModal: () => void
 }
 
+// interface snippet {
+
+// }
+
+export interface Data {
+    kind: string;
+    etag: string;
+    nextPageToken: string;
+    prevPageToken: string;
+    regionCode: string;
+    pageInfo: PageInfo;
+    items: Item[];
+}
+
+export interface PageInfo {
+    totalResults: number;
+    resultsPerPage: number;
+}
+
+export interface Item {
+    kind: string;
+    etag: string;
+    id: ID;
+    snippet: Snippet;
+}
+
+export interface ID {
+    kind: string;
+    videoId: string;
+}
+
+export interface Snippet {
+    publishedAt: Date;
+    channelId: string;
+    title: string;
+    description: string;
+    thumbnails: Thumbnails;
+    channelTitle: string;
+    liveBroadcastContent: string;
+    publishTime: Date;
+}
+
+export interface Thumbnails {
+    default: Default;
+    medium: Default;
+    high: Default;
+}
+
+export interface Default {
+    url: string;
+    width: number;
+    height: number;
+}
+
+
+
 
 const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
+
+    const [youtubeData, setYoutubeData] = useState<Data>();
+    const [pageNextToken, setNextPageToken] = useState("");
+    const [pagePrevToken, setPrevPageToken] = useState("");
+    const [item, setItem] = useState<Item>();
+    // const [youtubeDataVideos, setYoutubeDataVideos] = useState({})
+
     console.log('print')
     console.log(isOpen)
+    const videos: Item[] = youtubeData?.items ?? [];
+    // videos?.description
+
+    // console.log(videos[2]?.snippet.title)
+
+
+    
+    // console.log(youtubeDataVideos)
 
     let [isOpened, setIsOpened] = useState(true)
 
     function exitModal() {
         setIsOpened(false)
-      }
-    
-      function openModal() {
-        setIsOpened(true)
-      }
+    }
 
-    const openNewModal=()=>{
-        // closeModal()
+    function openModal() {
         setIsOpened(true)
     }
+
+    const openNewModal = () => {
+        // console.log("open moal")
+
+        // console.log(item);
+        // closeModal()
+        // setItem(item)
+        setIsOpened(true)
+    }
+    
+
+    console.log("add message");
+    console.log(item)
+
+
+    useEffect(() => {
+
+        // const fetchYoutubeVideos = async () => {
+        //     const res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY_PERSONAL}&channelId=${process.env.NEXT_PUBLIC_CHANNEL_ID_PERSONAL}&part=snippet,id&order=date&maxResults=50`);
+        //     const videos = await res.json();
+
+        //     setYoutubeData(videos);
+
+        //     return videos;
+        // }
+
+        const fetchYoutube = async () => {
+            const res = await axios.get(`https://www.googleapis.com/youtube/v3/search`, {
+                params: {
+                    key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY_PERSONAL,
+                    channelId: process.env.NEXT_PUBLIC_CHANNEL_ID_PERSONAL,
+                    part: "snippet,id",
+                    order: "date",
+                    maxResults: "50",
+                    pageToken: ""
+                }
+            });
+            const videoData = await res.data;
+            // const videos = videoData.items
+
+            setYoutubeData(videoData);
+            //  setYoutubeDataVideos(videos)
+
+            return videoData;
+        }
+
+        // fetchYoutubeVideos();
+
+        fetchYoutube()
+
+    }, [])
 
 
     return (
         <>
-            <Transition appear show={isOpen??false} as={Fragment}>
+            <Transition appear show={isOpen ?? false} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
                         as={Fragment}
@@ -71,18 +189,15 @@ const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
                                     <SearchBar />
 
                                     <div className="max-h-64 overflow-auto space-y-4">
-                                        <MessageTiles onClick={openNewModal} />
-                                        <MessageTiles onClick={openNewModal}/>
-                                        <MessageTiles onClick={openNewModal} />
-                                        <MessageTiles onClick={openNewModal} />
-                                        <MessageTiles onClick={openNewModal} />
-                                        <MessageTiles  onClick={openNewModal}/>
-                                        <MessageTiles  onClick={openNewModal}/>
-                                        <MessageTiles  onClick={openNewModal}/>
-                                        <MessageTiles onClick={openNewModal} />
-                                        <MessageTiles onClick={openNewModal} />
-                                        <MessageTiles onClick={openNewModal} />
-                                        <MessageTiles onClick={openNewModal} />
+                                        {
+                                            videos.map((video) => (
+                                                <div key={video.etag}>
+                                                    <MessageTiles click={openNewModal} title={video.snippet.title} thumbnail={video.snippet.thumbnails.default.url} />
+                                                </div>
+
+                                            ))
+                                        }
+                                       
 
                                     </div>
 
@@ -102,9 +217,13 @@ const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>
-                            
+
                         </div>
-                        <UploadMessageModal isOpen={isOpened} closeModal={exitModal} />
+                        <UploadMessageModal
+                         isOpen={isOpened}
+                         closeModal={exitModal} 
+                          item ={item! ??""}
+                         />
                     </div>
                 </Dialog>
             </Transition>
