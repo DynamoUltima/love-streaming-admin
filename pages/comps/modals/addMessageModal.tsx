@@ -5,6 +5,7 @@ import { Fragment, useEffect, useState } from "react";
 import SearchBar from "../search/searchbar";
 import MessageTiles from "../tiles/messageTiles";
 import UploadMessageModal from "./uploadMessageModal";
+import { useQuery, } from '@tanstack/react-query'
 
 
 interface Modal {
@@ -66,88 +67,39 @@ export interface Default {
     height: number;
 }
 
+const fetchYoutube = async () => {
+    const res = await axios.get(`https://www.googleapis.com/youtube/v3/search`, {
+        params: {
+            key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
+            channelId: process.env.NEXT_PUBLIC_CHANNEL_ID,
+            part: "snippet,id",
+            order: "date",
+            maxResults: "50",
+            pageToken: ""
+        }
+    });
 
+    const videoData = await res.data;
+
+    return videoData;
+}
 
 
 const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
 
-    const [youtubeData, setYoutubeData] = useState<Data>();
-    const [pageNextToken, setNextPageToken] = useState("");
-    const [pagePrevToken, setPrevPageToken] = useState("");
-    const [item, setItem] = useState<Item>();
+    ;
     // const [youtubeDataVideos, setYoutubeDataVideos] = useState({})
+
+    const { data, isError, isLoading, error, isSuccess } = useQuery<Data>(["youtubeData"], fetchYoutube,)
+
+    console.log("use Query Info");
+    console.log(data);
+
+
 
     console.log('print')
     console.log(isOpen)
-    const videos: Item[] = youtubeData?.items ?? [];
-    // videos?.description
-
-    // console.log(videos[2]?.snippet.title)
-
-
     
-    // console.log(youtubeDataVideos)
-
-    let [isOpened, setIsOpened] = useState(true)
-
-    function exitModal() {
-        setIsOpened(false)
-    }
-
-    function openModal() {
-        setIsOpened(true)
-    }
-
-    const openNewModal = () => {
-        // console.log("open moal")
-
-        // console.log(item);
-        // closeModal()
-        // setItem(item)
-        setIsOpened(true)
-    }
-    
-
-    console.log("add message");
-    console.log(item)
-
-
-    useEffect(() => {
-
-        // const fetchYoutubeVideos = async () => {
-        //     const res = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY_PERSONAL}&channelId=${process.env.NEXT_PUBLIC_CHANNEL_ID_PERSONAL}&part=snippet,id&order=date&maxResults=50`);
-        //     const videos = await res.json();
-
-        //     setYoutubeData(videos);
-
-        //     return videos;
-        // }
-
-        const fetchYoutube = async () => {
-            const res = await axios.get(`https://www.googleapis.com/youtube/v3/search`, {
-                params: {
-                    key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY_PERSONAL,
-                    channelId: process.env.NEXT_PUBLIC_CHANNEL_ID_PERSONAL,
-                    part: "snippet,id",
-                    order: "date",
-                    maxResults: "50",
-                    pageToken: ""
-                }
-            });
-            const videoData = await res.data;
-            // const videos = videoData.items
-
-            setYoutubeData(videoData);
-            //  setYoutubeDataVideos(videos)
-
-            return videoData;
-        }
-
-        // fetchYoutubeVideos();
-
-        fetchYoutube()
-
-    }, [])
 
 
     return (
@@ -187,17 +139,22 @@ const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
                                     {/* Search */}
 
                                     <SearchBar />
+                                    {isLoading && (<div className="text-white">Loading</div>)}
+                                    {isError && (<div className="text-white">{`${error}`}</div>)}
+
 
                                     <div className="max-h-64 overflow-auto space-y-4">
                                         {
-                                            videos.map((video) => (
+                                            data?.items.map((video) => (
                                                 <div key={video.etag}>
-                                                    <MessageTiles click={openNewModal} title={video.snippet.title} thumbnail={video.snippet.thumbnails.default.url} />
+                                                    <MessageTiles
+                                                        item={video}
+                                                    />
                                                 </div>
 
                                             ))
                                         }
-                                       
+
 
                                     </div>
 
@@ -219,11 +176,7 @@ const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
                             </Transition.Child>
 
                         </div>
-                        <UploadMessageModal
-                         isOpen={isOpened}
-                         closeModal={exitModal} 
-                          item ={item! ??""}
-                         />
+
                     </div>
                 </Dialog>
             </Transition>

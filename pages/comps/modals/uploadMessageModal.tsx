@@ -1,6 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import ReactPlayer from "react-player";
 import Player from "../player/player";
 import Tags from "../tags/tags";
 import { Item, Snippet } from "./addMessageModal";
@@ -8,21 +9,44 @@ import { Item, Snippet } from "./addMessageModal";
 interface Modal {
     isOpen: boolean,
     closeModal: () => void,
-    item?:Item,
-
+    item: Item,
 }
 
 
 
-const UploadMessageModal = ({ isOpen, closeModal,item }: Modal) => {
+const UploadMessageModal = ({ isOpen, closeModal, item }: Modal) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const [tagName, setTagName] = useState(['Faith', 'Love']);
-    
+    const [videoItem, setVideoItem] = useState("");
 
-    console.log("print item at upload modal")
-    console.log(item?.id?.videoId??"");
+    const [tagName, setTagName] = useState(['Faith', 'Love']);
+
+
+    console.log("item revamped")
+    console.log(item.id.videoId)
+
+    // console.log('upload modal item')
+    // console.log(item.id.videoId)
+    // setVideoItem(item?.id?.videoId!)
+
+    // useEffect(() => {
+    //     const fetchId = () => {
+
+    //         setVideoItem(item.id.videoId)
+    //         console.log("from effect")
+    //     }
+
+    //     fetchId()
+
+
+    // }, [item])
+
+
+
+
+    // console.log("print item at upload modal")
+    // console.log(item?.id?.videoId??"");
 
     const addTags = (e: any) => {
         if (e.code == "Space") {
@@ -105,17 +129,17 @@ const UploadMessageModal = ({ isOpen, closeModal,item }: Modal) => {
                                                         <ul className="flex flex-wrap">
                                                             {tagName.map((tagName, index) => (
                                                                 <li key={index}>
-                                                                    <Tags 
-                                                                    name={tagName} 
-                                                                    removeTags={removeTags}
-                                                                    index={index} 
+                                                                    <Tags
+                                                                        name={tagName}
+                                                                        removeTags={removeTags}
+                                                                        index={index}
                                                                     />
 
                                                                 </li>
                                                             ))}
                                                         </ul>
 
-                                                        <input  className=" bg-mattblack focus:outline-none w-full" placeholder="Press Space to add Tags" type={'text'} onKeyUp={addTags} />
+                                                        <input className=" bg-mattblack focus:outline-none w-full" placeholder="Press Space to add Tags" type={'text'} onKeyUp={addTags} />
                                                         {/* {errors.title && errors.title.type == "required" && <p className="text-red-400 text-sm">Please enter a title</p>} */}
                                                     </div>
                                                 </div>
@@ -135,8 +159,10 @@ const UploadMessageModal = ({ isOpen, closeModal,item }: Modal) => {
 
                                                 </div>
                                             </div>
+                                          
 
-                                            <Player videoId={item?.id?.videoId??""} />
+                                            <Player videoId={item} />
+                                            
 
 
 
@@ -168,8 +194,13 @@ const UploadMessageModal = ({ isOpen, closeModal,item }: Modal) => {
                                             </div> */}
                                         </form>
 
+                                    
 
                                     </div>
+
+
+                                    {/* <div className="text-white">8888</div>
+                                    <div className=" bg-blue-800 text-white">{item.id.videoId}</div> */}
 
 
 
