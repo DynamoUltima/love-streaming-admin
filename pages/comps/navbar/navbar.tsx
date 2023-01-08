@@ -12,13 +12,13 @@ const Navbar = () => {
     const router = useRouter();
     return (
         <>
-            <div className=" hidden md:flex  flex-row   items-center    justify-between ">
-                <div className="relative flex flex-col  w-24 h-14 ">
-                    <Image alt="profileImage"  src={LeLogo} />
+            <div className="flexer spacer header-font mb-14">
+                <div>
+                    <Image className="logo" alt="profileImage"  src={LeLogo} />
                 </div>
 
                 {/* Search */}
-                <div className="flex flex-row w-96 bg-mattblack items-center rounded-md px-4">
+                <div className="flex flex-row w-96 bg-mattblack items-center rounded-md px-4 hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-500">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
@@ -29,7 +29,7 @@ const Navbar = () => {
 
 
                 {/* Tab */}
-                <div className="flex flex-row space-x-4 ">
+                <div className="flex flex-row space-x-4 mr-[150px] ml-[auto]">
                     {tablink.map(tab => (
 
                         <ul key={tab.name}>
@@ -39,7 +39,7 @@ const Navbar = () => {
                                         <li className="text-gray-500">{tab.name}</li>
 
                                     </Link>
-                                    <div className={"w-1 h-1  bg-white rounded-full"} >
+                                    <div className={"w-2 h-2 mt-[2px]  bg-white rounded-full"} >
 
                                     </div>
                                 </div>
@@ -55,14 +55,14 @@ const Navbar = () => {
 
 
                 <div className=" flex flex-row items-center space-x-4">
-                    <div className="flex flex-row space-x-2 ">
-                        <PowerIcon className="w-6 h-6 text-white" />
-                        <div className="text-gray-500 text-sm font-extrabold">Logout</div>
+                    <div className="flexer">
+                        <PowerIcon className="w-6 h-6 text-white mr-[5px]" />
+                        <div className="header-font mr-[15px]">Logout</div>
 
                     </div>
 
 
-                    <div className="relative w-10 h-10  bg-white rounded-full overflow-clip ">
+                    <div className="relative w-[50px] h-[50px]  bg-white rounded-full overflow-clip ">
                         <Image alt="profileImage" fill  src={journalist} />
 
 

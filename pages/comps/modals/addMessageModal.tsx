@@ -70,8 +70,8 @@ export interface Default {
 const fetchYoutube = async () => {
     const res = await axios.get(`https://www.googleapis.com/youtube/v3/search`, {
         params: {
-            key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
-            channelId: process.env.NEXT_PUBLIC_CHANNEL_ID,
+            key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY_ERSONAL,
+            channelId: process.env.NEXT_PUBLIC_CHANNEL_ID_PERSONAL,
             part: "snippet,id",
             order: "date",
             maxResults: "50",
@@ -99,7 +99,7 @@ const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
 
     console.log('print')
     console.log(isOpen)
-    
+
 
 
     return (
