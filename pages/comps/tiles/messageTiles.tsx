@@ -12,8 +12,8 @@ interface messageData {
 const MessageTiles = ({  item }: messageData) => {
 
 
-    console.log('video item')
-    console.log(item)
+    // console.log('video item')
+    // console.log(item)
 
     let [isOpened, setIsOpened] = useState(false)
 
