@@ -5,7 +5,8 @@ import { Fragment, useEffect, useState } from "react";
 import SearchBar from "../search/searchbar";
 import MessageTiles from "../tiles/messageTiles";
 import UploadMessageModal from "./uploadMessageModal";
-import { useQuery, } from '@tanstack/react-query'
+import { useQuery, } from '@tanstack/react-query';
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 
 
 interface Modal {
@@ -87,19 +88,20 @@ const fetchYoutube = async () => {
 
 const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
 
-    ;
-    // const [youtubeDataVideos, setYoutubeDataVideos] = useState({})
 
-    const { data, isError, isLoading, error, isSuccess } = useQuery<Data>(["youtubeData"], fetchYoutube,)
+
+    const { data, isError, isLoading, error, isSuccess,isPreviousData } = useQuery<Data>(["youtubeData"], fetchYoutube,{keepPreviousData:true});
+
+    
 
     console.log("use Query Info");
     console.log(data);
 
 
 
-    console.log('print')
-    console.log(isOpen)
-    
+    // console.log('print')
+    // console.log(isOpen)
+
 
 
     return (
@@ -157,16 +159,32 @@ const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
 
 
                                     </div>
+                                    <div className="mt-4 flex flex-row  justify-between">
+                                        <button
+                                            type="button"
+                                            className="inline-flex justify-center  items-center rounded-md border border-transparent space-x-2 px-4 py-1 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                        // onClick={closeModal}
+                                        >
+                                            <ArrowLeftIcon className="w-6 h-6" />
+                                            <div> Previous</div>
+                                        </button>
 
+                                        <button
+                                            type="button"
+                                            className="inline-flex justify-center rounded-md border border-transparent space-x-2 px-4 py-1 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                        // onClick={closeModal}
+                                        >
+                                            <div> Next</div>
+                                            <ArrowRightIcon className="w-6 h-6" />
 
-
-
+                                        </button>
+                                    </div>
 
 
                                     <div className="mt-4">
                                         <button
                                             type="button"
-                                            className="inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                            className="inline-flex justify-center rounded-md border border-transparent bg-blue-500  px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                             onClick={closeModal}
                                         >
                                             Got it, thanks!

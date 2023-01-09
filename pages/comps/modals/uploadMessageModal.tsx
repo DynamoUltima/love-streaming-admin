@@ -18,7 +18,7 @@ const UploadMessageModal = ({ isOpen, closeModal, item }: Modal) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const [videoItem, setVideoItem] = useState("");
+  
 
     const [tagName, setTagName] = useState(['Faith', 'Love']);
 
@@ -26,35 +26,16 @@ const UploadMessageModal = ({ isOpen, closeModal, item }: Modal) => {
     console.log("item revamped")
     console.log(item.id.videoId)
 
-    // console.log('upload modal item')
-    // console.log(item.id.videoId)
-    // setVideoItem(item?.id?.videoId!)
-
-    // useEffect(() => {
-    //     const fetchId = () => {
-
-    //         setVideoItem(item.id.videoId)
-    //         console.log("from effect")
-    //     }
-
-    //     fetchId()
+   
 
 
-    // }, [item])
-
-
-
-
-    // console.log("print item at upload modal")
-    // console.log(item?.id?.videoId??"");
 
     const addTags = (e: any) => {
         if (e.code == "Space") {
             setTagName([...tagName, e.target.value]);
             e.target.value = "";
         }
-        // setTagName([...tagName, e.target.value]);
-        // e.target.value = "";
+       
 
 
     }
