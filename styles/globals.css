@@ -4,7 +4,12 @@
 
 @layer base{
   body {
-      font-family:'Montserrat'
+      font-family:'Montserrat';
+      color: #ffffff;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -15,6 +20,31 @@
 
   .rectangle{
       aspect-ratio:1/1.5
+  }
+
+  .padder {
+    padding: 0 5%;
+  }
+
+  .logo {
+    width:  200px;
+  }
+
+  .flexer {
+    display: flex;
+    align-items: center;
+  }
+
+  .spacer {
+    justify-content: space-between;
+  }
+
+  .avatar {
+    width: 100px;
+  }
+
+  .header-font {
+    font-size: 15px;
   }
 
 }
