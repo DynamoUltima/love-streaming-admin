@@ -23,8 +23,8 @@ const UploadMessageModal = ({ isOpen, closeModal, item }: Modal) => {
     const [tagName, setTagName] = useState(['Faith', 'Love']);
 
 
-    console.log("item revamped")
-    console.log(item.id.videoId)
+    // console.log("item revamped")
+    // console.log(item.id.videoId)
 
    
 

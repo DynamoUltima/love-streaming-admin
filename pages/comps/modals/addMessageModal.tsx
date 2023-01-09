@@ -94,8 +94,8 @@ const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
 
     
 
-    console.log("use Query Info");
-    console.log(data);
+    // console.log("use Query Info");
+    // console.log(data);
 
 
 
