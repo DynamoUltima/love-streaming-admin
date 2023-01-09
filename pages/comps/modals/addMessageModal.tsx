@@ -7,7 +7,7 @@ import MessageTiles from "../tiles/messageTiles";
 import UploadMessageModal from "./uploadMessageModal";
 import { dehydrate, QueryClient, useQuery, } from '@tanstack/react-query';
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 
 
 interface Modal {
@@ -214,7 +214,7 @@ const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
 
 export default AddMessageModal;
 
-export const getStaticProps: GetStaticProps = async()=> {
+export const getServerSideProps: GetServerSideProps= async()=> {
 
     const queryClient = new QueryClient()
 
@@ -228,9 +228,9 @@ export const getStaticProps: GetStaticProps = async()=> {
 
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-    return {
-      paths: [],
-      fallback: "blocking"
-    };
-  };
+// export const getStaticPaths: GetStaticPaths = async () => {
+//     return {
+//       paths: [],
+//       fallback: "blocking"
+//     };
+//   };
