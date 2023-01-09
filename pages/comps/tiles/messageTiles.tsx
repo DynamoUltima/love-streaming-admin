@@ -6,12 +6,6 @@ import RisingClouds from "/public/rising-clouds.jpg"
 
 
 interface messageData {
-    // title?: string,
-    // publishedAt?: Date,
-    // thumbnail?: string,
-    // click: any
-    // isOpened: boolean,
-    // exitModal: () => void,
     item: Item
 }
 
