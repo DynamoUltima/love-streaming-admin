@@ -5,7 +5,7 @@ import { Fragment, useEffect, useState } from "react";
 import SearchBar from "../search/searchbar";
 import MessageTiles from "../tiles/messageTiles";
 import UploadMessageModal from "./uploadMessageModal";
-import { useQuery, } from '@tanstack/react-query';
+import { dehydrate, QueryClient, useQuery, } from '@tanstack/react-query';
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 
 
@@ -68,33 +68,35 @@ export interface Default {
     height: number;
 }
 
+const fetchYoutube = async () => {
+    const res = await axios.get(`https://www.googleapis.com/youtube/v3/search`, {
+        params: {
+            key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
+            channelId: process.env.NEXT_PUBLIC_CHANNEL_ID,
+            part: "snippet,id",
+            order: "date",
+            maxResults: "50",
+            pageToken: ""
+        }
+    });
+
+    const videoData = await res.data;
+
+    return videoData;
+}
+
+
 
 
 
 const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
 
-    const fetchYoutube = async () => {
-        const res = await axios.get(`https://www.googleapis.com/youtube/v3/search`, {
-            params: {
-                key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
-                channelId: process.env.NEXT_PUBLIC_CHANNEL_ID,
-                part: "snippet,id",
-                order: "date",
-                maxResults: "50",
-                pageToken: ""
-            }
-        });
-    
-        const videoData = await res.data;
-    
-        return videoData;
-    }
 
 
 
-    const { data, isError, isLoading, error, isSuccess,isPreviousData } = useQuery<Data>(["youtubeData"], fetchYoutube,{keepPreviousData:true});
+    const { data, isError, isLoading, error, isSuccess, isPreviousData } = useQuery<Data>(["youtubeData"], fetchYoutube, { keepPreviousData: true });
 
-    
+
 
     console.log("use Query Info");
     console.log(data);
@@ -210,3 +212,17 @@ const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
 
 
 export default AddMessageModal;
+
+export async function getStaticProps() {
+
+    const queryClient = new QueryClient()
+
+    await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient)
+        }
+    }
+
+}
