@@ -14,7 +14,8 @@ import { Props } from "@headlessui/react/dist/types";
 interface Modal {
     isOpen: boolean,
     closeModal: () => void,
-    initialData?:Data
+    initialData?:Data,
+ 
 
     // dehydrated:Props
 }
@@ -76,8 +77,8 @@ export interface Default {
 const fetchYoutube = async () => {
     const res = await axios.get(`https://www.googleapis.com/youtube/v3/search`, {
         params: {
-            key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
-            channelId: process.env.NEXT_PUBLIC_CHANNEL_ID,
+            key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY_PERSONAL,
+            channelId: process.env.NEXT_PUBLIC_CHANNEL_ID_PERSONAL,
             part: "snippet,id",
             order: "date",
             maxResults: "50",
@@ -94,7 +95,7 @@ const fetchYoutube = async () => {
 
 
 
-const AddMessageModal = ({ isOpen, closeModal, }: Modal,) => {
+const AddMessageModal = ({ isOpen, closeModal, }: Modal) => {
 
 
 
@@ -102,6 +103,8 @@ const AddMessageModal = ({ isOpen, closeModal, }: Modal,) => {
     const { data, isError, isLoading, error, isSuccess, isPreviousData } = useQuery<Data>(["youtubeData"], fetchYoutube, {keepPreviousData:true });
 
 
+
+    // isLoading && (<div className="text-white">Loading</div>)
 
     console.log("use Query Info");
     console.log(data);
