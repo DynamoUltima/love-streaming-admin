@@ -5,17 +5,16 @@ import { Fragment, useEffect, useState } from "react";
 import SearchBar from "../search/searchbar";
 import MessageTiles from "../tiles/messageTiles";
 import UploadMessageModal from "./uploadMessageModal";
-import { dehydrate, QueryClient, useQuery, } from '@tanstack/react-query';
+import { dehydrate, DehydratedState, QueryClient, useQuery, } from '@tanstack/react-query';
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
-import { Props } from "@headlessui/react/dist/types";
+
 
 
 interface Modal {
     isOpen: boolean,
     closeModal: () => void,
-    initialData?:Data,
- 
+    // initialData?: Data,
 
     // dehydrated:Props
 }
@@ -92,7 +91,7 @@ const fetchYoutube = async () => {
 }
 
 
-const specData={
+const specData = {
     "kind": "youtube#searchListResponse",
     "etag": "QbSN_9VpULHeVzuUYGd0dcStO2w",
     "nextPageToken": "CJYBEAA",
@@ -1821,9 +1820,9 @@ const AddMessageModal = ({ isOpen, closeModal, }: Modal) => {
 
 
     console.log("use Query Info");
-    console.log(data);
+    console.log(data!);
 
-  
+
 
 
 
@@ -1873,12 +1872,12 @@ const AddMessageModal = ({ isOpen, closeModal, }: Modal) => {
                                     {isError && (<div className="text-white">{`${error}`}</div>)}
 
 
-                                    {isSuccess&& (<div className="max-h-64 overflow-auto space-y-4">
+                                    {isSuccess && (<div className="max-h-64 overflow-auto space-y-4">
                                         ({
                                             data?.items.map((video) => (
                                                 <div key={video.etag}>
                                                     <MessageTiles
-                                                        item={video}
+                                                        item={video!}
                                                     />
                                                 </div>
 
@@ -1937,14 +1936,14 @@ const AddMessageModal = ({ isOpen, closeModal, }: Modal) => {
 
 export default AddMessageModal;
 
-export const getServerSideProps: GetServerSideProps= async()=> {
+export const getServerSideProps: GetServerSideProps = async (): Promise<{ props: { dehydratedState: DehydratedState } }> => {
 
     const queryClient = new QueryClient()
 
     await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
 
     // const data = await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
-    
+
 
 
     // queryClient.fetchQuery<Data>(["youtubeData"], fetchYoutube,);

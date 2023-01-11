@@ -52,10 +52,10 @@ const MessageTiles = ({  item }: messageData) => {
             <div onClick={openNewModal} className="flex flex-row  justify-between space-x-2 ">
 
                 <div className="relative overflow-clip square h-16  whitespace-nowrap rounded-md">
-                    <Image className="" alt='Mesage image' fill src={`${item.snippet.thumbnails.default.url}`} />
+                    <Image className="" alt='Mesage image' fill src={`${item.snippet.thumbnails.default.url??""}`} />
                 </div>
                 <div className="flex flex-col justify-between">
-                    <div className="text-sm text-gray-400  font-extrabold">{item.snippet.title.replace(/^a-zA-Z0-9 ]/g, '')} </div>
+                    <div className="text-sm text-gray-400  font-extrabold">{item.snippet.title.replace(/^a-zA-Z0-9 ]/g, '')??""} </div>
                     <div className="text-xs text-gray-500"> 1hr 23 mins</div>
                 </div>
 

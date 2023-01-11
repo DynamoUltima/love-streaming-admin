@@ -5,7 +5,7 @@ import { ThemeProvider } from "@material-tailwind/react";
 import { QueryClient, QueryClientProvider, useQuery, Hydrate } from '@tanstack/react-query'
 import { useState } from 'react';
 
-// const queryClient = new QueryClient();
+
 
 export default function App({ Component, pageProps }: AppProps) {
 
