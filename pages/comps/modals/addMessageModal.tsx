@@ -14,7 +14,7 @@ import { Props } from "@headlessui/react/dist/types";
 interface Modal {
     isOpen: boolean,
     closeModal: () => void,
-    initialData:any
+    initialData?:Data
 
     // dehydrated:Props
 }
