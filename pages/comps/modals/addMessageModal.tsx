@@ -99,7 +99,7 @@ const AddMessageModal = ({ isOpen, closeModal,initialData }: Modal,) => {
 
 
 
-    const { data, isError, isLoading, error, isSuccess, isPreviousData } = useQuery<Data>(["youtubeData"], fetchYoutube, { keepPreviousData: true,initialData });
+    const { data, isError, isLoading, error, isSuccess, isPreviousData } = useQuery<Data>(["youtubeData"], fetchYoutube, {initialData });
 
 
 
@@ -224,10 +224,17 @@ export const getServerSideProps: GetServerSideProps= async()=> {
 
     await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
 
+    const data = await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
+    
+
+
+    // queryClient.fetchQuery<Data>(["youtubeData"], fetchYoutube,);
+
     return {
         props: {
             dehydratedState: dehydrate(queryClient),
-            initialData:queryClient.getQueryData
+            initialData:data
+        
         }
     }
 
