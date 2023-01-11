@@ -1819,11 +1819,6 @@ const AddMessageModal = ({ isOpen, closeModal, }: Modal) => {
 
 
 
-    // isLoading && (<div className="text-white">Loading</div>)
-
-    // if(data ===undefined){
-    //     return <div>loading (undefined)</div>
-    // }
 
     console.log("use Query Info");
     console.log(data);
