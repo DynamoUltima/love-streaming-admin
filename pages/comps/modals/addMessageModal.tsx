@@ -94,12 +94,12 @@ const fetchYoutube = async () => {
 
 
 
-const AddMessageModal = ({ isOpen, closeModal,initialData }: Modal,) => {
+const AddMessageModal = ({ isOpen, closeModal, }: Modal,) => {
 
 
 
 
-    const { data, isError, isLoading, error, isSuccess, isPreviousData } = useQuery<Data>(["youtubeData"], fetchYoutube, {initialData });
+    const { data, isError, isLoading, error, isSuccess, isPreviousData } = useQuery<Data>(["youtubeData"], fetchYoutube, {keepPreviousData:true });
 
 
 
@@ -218,28 +218,41 @@ const AddMessageModal = ({ isOpen, closeModal,initialData }: Modal,) => {
 
 export default AddMessageModal;
 
-export const getServerSideProps: GetServerSideProps= async()=> {
+// export const getServerSideProps: GetServerSideProps= async()=> {
+
+//     const queryClient = new QueryClient()
+
+//     await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
+
+//     const data = await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
+    
+
+
+//     // queryClient.fetchQuery<Data>(["youtubeData"], fetchYoutube,);
+
+//     return {
+//         props: {
+//             dehydratedState: dehydrate(queryClient),
+//             initialData:data
+        
+//         }
+//     }
+
+// }
+
+export async function getStaticProps() {
 
     const queryClient = new QueryClient()
 
     await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
 
-    const data = await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
-    
-
-
-    // queryClient.fetchQuery<Data>(["youtubeData"], fetchYoutube,);
-
     return {
         props: {
-            dehydratedState: dehydrate(queryClient),
-            initialData:data
-        
+            dehydratedState: dehydrate(queryClient)
         }
     }
 
 }
-
 // export const getStaticPaths: GetStaticPaths = async () => {
 //     return {
 //       paths: [],
