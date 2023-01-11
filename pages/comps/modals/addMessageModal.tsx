@@ -1873,8 +1873,8 @@ const AddMessageModal = ({ isOpen, closeModal, }: Modal) => {
                                     {isError && (<div className="text-white">{`${error}`}</div>)}
 
 
-                                    <div className="max-h-64 overflow-auto space-y-4">
-                                        {
+                                    {isSuccess&& (<div className="max-h-64 overflow-auto space-y-4">
+                                        ({
                                             data?.items.map((video) => (
                                                 <div key={video.etag}>
                                                     <MessageTiles
@@ -1883,10 +1883,10 @@ const AddMessageModal = ({ isOpen, closeModal, }: Modal) => {
                                                 </div>
 
                                             ))
-                                        }
+                                        })
 
 
-                                    </div>
+                                    </div>)}
                                     <div className="mt-4 flex flex-row  justify-between">
                                         <button
                                             type="button"
