@@ -8,11 +8,15 @@ import UploadMessageModal from "./uploadMessageModal";
 import { dehydrate, QueryClient, useQuery, } from '@tanstack/react-query';
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
+import { Props } from "@headlessui/react/dist/types";
 
 
 interface Modal {
     isOpen: boolean,
-    closeModal: () => void
+    closeModal: () => void,
+    initialData:any
+
+    // dehydrated:Props
 }
 
 // interface snippet {
@@ -90,12 +94,12 @@ const fetchYoutube = async () => {
 
 
 
-const AddMessageModal = ({ isOpen, closeModal }: Modal) => {
+const AddMessageModal = ({ isOpen, closeModal,initialData }: Modal,) => {
 
 
 
 
-    const { data, isError, isLoading, error, isSuccess, isPreviousData } = useQuery<Data>(["youtubeData"], fetchYoutube, { keepPreviousData: true });
+    const { data, isError, isLoading, error, isSuccess, isPreviousData } = useQuery<Data>(["youtubeData"], fetchYoutube, { keepPreviousData: true,initialData });
 
 
 
@@ -222,7 +226,8 @@ export const getServerSideProps: GetServerSideProps= async()=> {
 
     return {
         props: {
-            dehydratedState: dehydrate(queryClient)
+            dehydratedState: dehydrate(queryClient),
+            initialData:queryClient.getQueryData
         }
     }
 
