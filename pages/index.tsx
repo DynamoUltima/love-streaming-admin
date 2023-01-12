@@ -7,11 +7,16 @@ import MessageCard from "./comps/cards/messageCard";
 import AddCard from "./comps/cards/addCard";
 import { useState } from 'react';
 
-import AddMessageModal, { Data } from './comps/modals/addMessageModal';
+import AddMessageModal from './comps/modals/addMessageModal';
 import { Button } from "@material-tailwind/react";
 import { DehydratedState, QueryClient, dehydrate, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
+import { Data } from './interfaces';
+
+
+
+
 
 
 
