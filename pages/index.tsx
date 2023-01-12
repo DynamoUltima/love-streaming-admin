@@ -5,10 +5,32 @@ import Layout from './layout'
 import { PlusIcon } from "@heroicons/react/24/solid";
 import MessageCard from "./comps/cards/messageCard";
 import AddCard from "./comps/cards/addCard";
-import { Fragment, useEffect, useState } from 'react';
-import { Dialog, Transition } from '@headlessui/react'
-import AddMessageModal from './comps/modals/addMessageModal';
+import { useState } from 'react';
+
+import AddMessageModal, { Data } from './comps/modals/addMessageModal';
 import { Button } from "@material-tailwind/react";
+import { DehydratedState, QueryClient, dehydrate, useQuery } from '@tanstack/react-query';
+import { GetServerSideProps } from 'next';
+import axios from 'axios';
+
+
+
+const fetchYoutube = async () => {
+  const res = await axios.get(`https://www.googleapis.com/youtube/v3/search`, {
+      params: {
+          key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY_PERSONAL,
+          channelId: process.env.NEXT_PUBLIC_CHANNEL_ID_PERSONAL,
+          part: "snippet,id",
+          order: "date",
+          maxResults: "50",
+          pageToken: ""
+      }
+  }) ;
+
+  const videoData = await res.data ;
+
+  return videoData;
+}
 
 
 
@@ -25,6 +47,11 @@ export default function Home() {
 
 
   }
+
+  const { data, isError, isLoading, error, isSuccess, } = useQuery<Data>(["youtubeData"], fetchYoutube,{keepPreviousData:true});
+
+  console.log('printing data from index');
+  console.log(data)
 
   const toggle = () => { }
 
@@ -55,7 +82,8 @@ export default function Home() {
             </Button>
           </div>
 
-          <AddMessageModal isOpen={isOpen} closeModal={closeModal} />
+         { isSuccess &&(<AddMessageModal isOpen={isOpen} closeModal={closeModal}  data ={data} />)}
+
 
 
 
@@ -93,4 +121,25 @@ export default function Home() {
       </Layout>
     </div>
   )
+}
+
+
+export const getServerSideProps: GetServerSideProps = async (): Promise<{ props: { dehydratedState: DehydratedState } }> => {
+
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
+
+  // const data = await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
+
+
+
+  // queryClient.fetchQuery<Data>(["youtubeData"], fetchYoutube,);
+
+  return {
+      props: {
+          dehydratedState: dehydrate(queryClient),
+      }
+  }
+
 }

@@ -14,9 +14,10 @@ import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 interface Modal {
     isOpen: boolean,
     closeModal: () => void,
-    // initialData?: Data,
+    data:Data
+  
 
-    // dehydrated:Props
+  
 }
 
 // interface snippet {
@@ -73,22 +74,7 @@ export interface Default {
     height: number;
 }
 
-const fetchYoutube = async () => {
-    const res = await axios.get(`https://www.googleapis.com/youtube/v3/search`, {
-        params: {
-            key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY_PERSONAL,
-            channelId: process.env.NEXT_PUBLIC_CHANNEL_ID_PERSONAL,
-            part: "snippet,id",
-            order: "date",
-            maxResults: "50",
-            pageToken: ""
-        }
-    });
 
-    const videoData = await res.data;
-
-    return videoData;
-}
 
 
 const specData = {
@@ -1805,22 +1791,40 @@ const specData = {
     ]
 }
 
+const fetchYoutube = async () => {
+    const res = await axios.get(`https://www.googleapis.com/youtube/v3/search`, {
+        params: {
+            key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY_PERSONAL,
+            channelId: process.env.NEXT_PUBLIC_CHANNEL_ID_PERSONAL,
+            part: "snippet,id",
+            order: "date",
+            maxResults: "50",
+            pageToken: ""
+        }
+    }) ;
+
+    const videoData = await res.data ;
+
+    return videoData;
+}
 
 
 
+const AddMessageModal = ({ isOpen, closeModal, data}:Modal) => {
+    
 
-const AddMessageModal = ({ isOpen, closeModal, }: Modal) => {
+    // console.log("init Data")
+    // console.log(initialData);
 
 
 
-
-    const { data, isError, isLoading, error, isSuccess, isPreviousData } = useQuery<Data>(["youtubeData"], fetchYoutube,);
+   const { data:value, isError, isLoading, error, isSuccess, } = useQuery<Data>(["youtubeData"], fetchYoutube,{keepPreviousData:true});
 
 
 
 
     console.log("use Query Info");
-    console.log(data!);
+    console.log(data);
 
 
 
@@ -1936,25 +1940,25 @@ const AddMessageModal = ({ isOpen, closeModal, }: Modal) => {
 
 export default AddMessageModal;
 
-export const getServerSideProps: GetServerSideProps = async (): Promise<{ props: { dehydratedState: DehydratedState } }> => {
+// export const getServerSideProps: GetServerSideProps = async (): Promise<{ props: { dehydratedState: DehydratedState } }> => {
 
-    const queryClient = new QueryClient()
+//     const queryClient = new QueryClient()
 
-    await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
+//     await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
 
-    // const data = await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
+//     // const data = await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
 
 
 
-    // queryClient.fetchQuery<Data>(["youtubeData"], fetchYoutube,);
+//     // queryClient.fetchQuery<Data>(["youtubeData"], fetchYoutube,);
 
-    return {
-        props: {
-            dehydratedState: dehydrate(queryClient),
-        }
-    }
+//     return {
+//         props: {
+//             dehydratedState: dehydrate(queryClient),
+//         }
+//     }
 
-}
+// }
 
 // export async function getStaticProps() {
 
@@ -1962,13 +1966,33 @@ export const getServerSideProps: GetServerSideProps = async (): Promise<{ props:
 
 //     await queryClient.prefetchQuery<Data>(["youtubeData"], fetchYoutube,);
 
+//     const fetchYoutuber = async () => {
+//         const res = await axios.get(`https://www.googleapis.com/youtube/v3/search`, {
+//             params: {
+//                 key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY_PERSONAL,
+//                 channelId: process.env.NEXT_PUBLIC_CHANNEL_ID_PERSONAL,
+//                 part: "snippet,id",
+//                 order: "date",
+//                 maxResults: "50",
+//                 pageToken: ""
+//             }
+//         }) ;
+    
+//         const videoData = await res.data as Data ;
+    
+//         return videoData;
+//     }
+
+//     const data =await fetchYoutuber()
+
 //     return {
 //         props: {
-//             dehydratedState: dehydrate(queryClient)
+//             // dehydratedState: dehydrate(queryClient)
+//             initialData: data
 //         }
 //     }
 
-// }
+//  }
 // export const getStaticPaths: GetStaticPaths = async () => {
 //     return {
 //       paths: [],
