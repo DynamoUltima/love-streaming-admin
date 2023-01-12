@@ -3,11 +3,11 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Layout from './layout'
 import { PlusIcon } from "@heroicons/react/24/solid";
-import MessageCard from "./comps/cards/messageCard";
-import AddCard from "./comps/cards/addCard";
+import MessageCard from "../comps/cards/messageCard";
+import AddCard from "../comps/cards/addCard";
 import { useState } from 'react';
 
-import AddMessageModal from './comps/modals/addMessageModal';
+import AddMessageModal from '../comps/modals/addMessageModal';
 import { Button } from "@material-tailwind/react";
 import { DehydratedState, QueryClient, dehydrate, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';

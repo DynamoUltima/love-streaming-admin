@@ -8,7 +8,7 @@ import UploadMessageModal from "./uploadMessageModal";
 import { dehydrate, DehydratedState, QueryClient, useQuery, } from '@tanstack/react-query';
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
-import { Data } from "../../../interfaces/interface";
+import { Data } from "../../interfaces/interface";
 
 
 
