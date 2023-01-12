@@ -82,7 +82,7 @@ export default function Home() {
             </Button>
           </div>
 
-         { isSuccess &&(<AddMessageModal isOpen={isOpen} closeModal={closeModal}  data ={data} />)}
+         {/* { isSuccess &&(<AddMessageModal isOpen={isOpen} closeModal={closeModal}  data ={data} />)} */}
 
 
 
