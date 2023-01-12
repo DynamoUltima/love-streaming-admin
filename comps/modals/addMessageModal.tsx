@@ -15,7 +15,7 @@ import { Data } from "../../interfaces/interface";
 interface Modal {
     isOpen: boolean,
     closeModal: () => void,
-    data:Data
+    initData:Data
   
 
   
@@ -50,21 +50,21 @@ const fetchYoutube = async () => {
 
 
 
-const AddMessageModal = ({ isOpen, closeModal, data}:Modal) => {
+const AddMessageModal = ({ isOpen, closeModal, initData}:Modal) => {
     
 
     console.log("init Data")
-    console.log(data);
+    console.log(initData);
 
 
 
-   const { data:value, isError, isLoading, error, isSuccess,  } = useQuery<Data>(["youtubeData"], fetchYoutube,{keepPreviousData:true,initialData:data});
+   const { data, isError, isLoading, error, isSuccess,  } = useQuery<Data>(["youtubeData"], fetchYoutube,{keepPreviousData:true,initialData:initData});
 
 
 
 
     console.log("use Query Info");
-    console.log(data??value);
+    console.log(data);
 
 
 
