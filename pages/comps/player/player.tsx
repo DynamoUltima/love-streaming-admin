@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
-import { Item } from "../../interfaces";
+import { Item } from "../../../interfaces/interfaces";
 
 
 const Player = ({ videoId }: { videoId: Item}) => {

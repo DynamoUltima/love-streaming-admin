@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import { Item } from "../../interfaces";
+import { Item } from "../../../interfaces/interfaces";
 
 import UploadMessageModal from "../modals/uploadMessageModal";
 import RisingClouds from "/public/rising-clouds.jpg"
