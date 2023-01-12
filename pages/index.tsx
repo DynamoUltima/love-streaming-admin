@@ -23,8 +23,8 @@ import { Data } from '../interfaces/interface';
 const fetchYoutube = async () => {
   const res = await axios.get(`https://www.googleapis.com/youtube/v3/search`, {
       params: {
-          key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY_PERSONAL,
-          channelId: process.env.NEXT_PUBLIC_CHANNEL_ID_PERSONAL,
+          key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
+          channelId: process.env.NEXT_PUBLIC_CHANNEL_ID,
           part: "snippet,id",
           order: "date",
           maxResults: "50",
