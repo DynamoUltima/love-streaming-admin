@@ -87,7 +87,7 @@ export default function Home() {
             </Button>
           </div>
 
-        <AddMessageModal isOpen={isOpen} closeModal={closeModal}  data ={data!} />
+        <AddMessageModal isOpen={isOpen} closeModal={closeModal}  initData ={data!} />
 
 
 
