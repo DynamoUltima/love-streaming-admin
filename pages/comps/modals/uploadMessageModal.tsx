@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ReactPlayer from "react-player";
-import { Item } from "../../../interfaces/interface";
+import { Item } from "../../interface";
 import Player from "../player/player";
 import Tags from "../tags/tags";
 
