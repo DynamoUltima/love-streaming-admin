@@ -1813,18 +1813,18 @@ const fetchYoutube = async () => {
 const AddMessageModal = ({ isOpen, closeModal, data}:Modal) => {
     
 
-    // console.log("init Data")
-    // console.log(initialData);
+    console.log("init Data")
+    console.log(data);
 
 
 
-   const { data:value, isError, isLoading, error, isSuccess, } = useQuery<Data>(["youtubeData"], fetchYoutube,{keepPreviousData:true});
+   const { data:value, isError, isLoading, error, isSuccess,  } = useQuery<Data>(["youtubeData"], fetchYoutube,{keepPreviousData:true,initialData:data});
 
 
 
 
     console.log("use Query Info");
-    console.log(data);
+    console.log(data??value);
 
 
 
@@ -1881,7 +1881,7 @@ const AddMessageModal = ({ isOpen, closeModal, data}:Modal) => {
                                             data?.items.map((video) => (
                                                 <div key={video.etag}>
                                                     <MessageTiles
-                                                        item={video!}
+                                                        item={video}
                                                     />
                                                 </div>
 
