@@ -55,8 +55,8 @@ export default function Home() {
 
   const { data, isError, isLoading, error, isSuccess, } = useQuery<Data>(["youtubeData"], fetchYoutube,{keepPreviousData:true});
 
-  console.log('printing data from index');
-  console.log(data)
+  // console.log('printing data from index');
+  // console.log(data)
 
   const toggle = () => { }
 

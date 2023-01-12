@@ -16,9 +16,7 @@ interface Modal {
     isOpen: boolean,
     closeModal: () => void,
     initData:Data
-  
 
-  
 }
 
 // interface snippet {
@@ -34,8 +32,8 @@ interface Modal {
 const fetchYoutube = async () => {
     const res = await axios.get(`https://www.googleapis.com/youtube/v3/search`, {
         params: {
-            key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY_PERSONAL,
-            channelId: process.env.NEXT_PUBLIC_CHANNEL_ID_PERSONAL,
+            key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
+            channelId: process.env.NEXT_PUBLIC_CHANNEL_ID,
             part: "snippet,id",
             order: "date",
             maxResults: "50",
@@ -58,7 +56,7 @@ const AddMessageModal = ({ isOpen, closeModal, initData}:Modal) => {
 
 
 
-   const { data, isError, isLoading, error, isSuccess,  } = useQuery<Data>(["youtubeData"], fetchYoutube,{keepPreviousData:true,initialData:initData});
+   const { data, isError, isLoading, error, isSuccess,  } = useQuery<Data>(["youtubeData"], fetchYoutube,{keepPreviousData:true,});
 
 
 
