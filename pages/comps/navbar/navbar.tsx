@@ -29,7 +29,7 @@ const Navbar = () => {
 
 
                 {/* Tab */}
-                <div className="flex flex-row space-x-4 ">
+                {/* <div className="flex flex-row space-x-4 ">
                     {tablink.map(tab => (
 
                         <ul key={tab.name}>
@@ -51,7 +51,7 @@ const Navbar = () => {
 
                         </ul>
                     ))}
-                </div>
+                </div> */}
 
 
                 <div className=" flex flex-row items-center space-x-4">

@@ -12,7 +12,7 @@ import { Button } from "@material-tailwind/react";
 import { DehydratedState, QueryClient, dehydrate, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
-import { Data } from './interface';
+import { Data } from '../interfaces/interface';
 
 
 
