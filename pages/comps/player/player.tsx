@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
-import { Item } from "../modals/addMessageModal";
+import { Item } from "../../interfaces";
+
 
 const Player = ({ videoId }: { videoId: Item}) => {
 
