@@ -115,7 +115,7 @@ const AddMessageModal = ({ isOpen, closeModal, initData}:Modal) => {
 
 
                                     {isSuccess && (<div className="max-h-64 overflow-auto space-y-4">
-                                        ({
+                                        {
                                             data?.items.map((video) => (
                                                 <div key={video.etag}>
                                                     <MessageTiles
