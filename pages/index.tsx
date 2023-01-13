@@ -486,15 +486,15 @@ export default function Home() {
 
 
   return (
-    <div className=' m-auto w-screen h-screen overscroll-contain bg-grayblack padder'>
+    <div className=' m-auto w-screen h-screen overscroll-contain bg-grayblack padder md:px-6'>
       <Layout>
-        <div className="flex flex-col space-y-4 h-5/6  ">
-          <div className='flexer spacer mb-8'>
+        <div className="flex flex-col space-y-4 md:space-y-2 h-5/6  ">
+          <div className='flexer spacer mb-8  md:mb-6 mt-2'>
             <div className='flex items-baseline'>
               <div className='text-[22px]'>Messages</div>
               <div className='text-[12px] opacity-[.5] ml-[10px]'>17 total</div>
             </div>
-            <Button onClick={openModal} type="button" className={`!bg-blue-500 text-xs w-48  !h-16   !hover:bg-blue-400 !text-white !rounded-xl !p-2 !flex !flex-row !justify-center items-center space-x-2 shadow-xl focus:outline-none  focus:ring-offset-2 focus:ring-2 `}>
+            <Button onClick={openModal} type="button" className={`!bg-blue-500 text-xs w-48  !h-16 md:!h-14  !hover:bg-blue-400 !text-white !rounded-xl !p-2 !flex !flex-row !justify-center items-center space-x-2 shadow-xl focus:outline-none  focus:ring-offset-2 focus:ring-2 `}>
               <PlusIcon className="w-6 h-6 text-white" />
               <div className="capitalize font-[Montserrat] text-xs text-white text-[15px]">Add New</div>
             </Button>
