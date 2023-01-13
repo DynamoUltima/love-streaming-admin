@@ -5,10 +5,10 @@ import { PlusIcon } from "@heroicons/react/24/solid";
 const AddCard = () => {
     return (
         <>
-            <div className='flex flex-col w-44 space-y-2'>
+            <div className='flex flex-col space-y-2'>
                 {/* Image */}
-                <div className='relative h-32 w-44 bg-neutral-700 rounded-lg overflow-clip flex items-center justify-center shadow-lg'>
-                 
+                <div className='relative h-60 bg-neutral-700 rounded-lg overflow-clip flex items-center justify-center bg-[#ffffff10] shadow-lg cursor-[pointer]'>
+
                     <PlusIcon className="w-8 h-8 text-white" />
                 </div>
                 {/* Text */}
