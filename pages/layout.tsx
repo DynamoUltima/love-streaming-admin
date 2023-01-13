@@ -1,4 +1,4 @@
-import { Footer } from "./comps/footer/footer";
+import { Footer } from "../comps/footer/footer";
 import Navbar from "../comps/navbar/navbar";
 
 
